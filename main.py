@@ -28,6 +28,7 @@ def main():
     
     Settings.startup()
     BezierCurve.mainCurve = BezierCurve()
+    BezierCurve(20,20)
 
     while (True):
         for event in pygame.event.get():

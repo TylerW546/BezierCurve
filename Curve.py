@@ -13,6 +13,8 @@ class BezierCurve():
    otherLineColor = (100,100,200)
    
    curveColor = (200,100,100)
+
+   selectedPointColor = (100,200,100)
    
    def __init__(self, x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2, numPoints=1):
       self.x = x
@@ -29,10 +31,15 @@ class BezierCurve():
    def handle_event(self, event):
       for point in self.points:
          point.handle_event(event)
+         if point.clicked:
+            BezierCurve.mainCurve = self
    
    def drawPoints(self, screen):
       for point in self.points:
-         point.draw(screen)
+         if self == BezierCurve.mainCurve:
+            point.drawColor(screen, BezierCurve.selectedPointColor)
+         else:
+            point.draw(screen)
    
    def drawPrimaryLines(self, screen, width):
       for i in range(len(self.points)-1):
@@ -52,7 +59,10 @@ class BezierCurve():
          if self.points[i].clicked == True:
             for point in self.points[i+1:]:
                point.clicked = False
-            break
+            for curve in BezierCurve.allCurves:
+               if curve != self:
+                  for point in curve.points:
+                     point.clicked = False
    
    def setPointsRadius(self, radius):
       for point in self.points:

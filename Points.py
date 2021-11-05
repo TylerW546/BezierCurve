@@ -32,6 +32,10 @@ class Point():
    def draw(self, screen):
       pygame.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
+   def drawColor(self, screen, color):
+      pygame.draw.circle(screen, color, (self.x, self.y), self.radius)
+
+
 class BoundaryPoint(Point):
    def __init__(self,x=1,y=1,color=(255,255,255),radius=5,minX=0,maxX=SCREEN_WIDTH,minY=0,maxY=SCREEN_HEIGHT):
       super(BoundaryPoint, self).__init__(x,y,color,radius)
