@@ -61,6 +61,8 @@ class Settings():
       Settings.buttons.append(ToggleButton(x=SCREEN_WIDTH+10, y = 300, text="Animate Full Curve", initialValue=Settings.animFullCurve))
       Settings.buttons.append(ToggleButton(x=SCREEN_WIDTH+Settings.panelWidth/2+10, y = 300, text="Draw Full Curve", initialValue=Settings.drawFullCurve))
 
+      Settings.buttons.append(NewCurveButton(x=SCREEN_WIDTH+Settings.panelWidth/2-75, y=350, w=150, text = "New Curve"))
+      
    @staticmethod
    def handle_event(event):
       if not Settings.animationFrozen:

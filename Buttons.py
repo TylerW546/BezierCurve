@@ -106,6 +106,10 @@ class RemovePointButton(ClickerButton):
       if len(BezierCurve.mainCurve.points) > 1:
          BezierCurve.mainCurve.points.pop()
 
+class NewCurveButton(ClickerButton):
+   def onClick(self):
+      BezierCurve.mainCurve = BezierCurve()
+
 class AnimateLineButton(ClickerButton):
    def onClick(self):
       from Settings import Settings
