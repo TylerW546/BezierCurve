@@ -34,6 +34,8 @@ class Settings():
    animFullCurve = True
    drawFullCurve = True
    
+   maxInt = 200
+   
    @staticmethod
    def startup():
       Settings.buttons.append(NewPointButton(x=SCREEN_WIDTH+Settings.panelWidth/2-75, y=20, w=150, text = "New Point"))
@@ -61,8 +63,6 @@ class Settings():
       Settings.buttons.append(ToggleButton(x=SCREEN_WIDTH+10, y = 300, text="Animate Full Curve", initialValue=Settings.animFullCurve))
       Settings.buttons.append(ToggleButton(x=SCREEN_WIDTH+Settings.panelWidth/2+10, y = 300, text="Draw Full Curve", initialValue=Settings.drawFullCurve))
 
-      Settings.buttons.append(NewCurveButton(x=SCREEN_WIDTH+Settings.panelWidth/2-75, y=350, w=150, text = "New Curve"))
-      
    @staticmethod
    def handle_event(event):
       if not Settings.animationFrozen:
@@ -111,18 +111,22 @@ class Settings():
       
       try:
          Settings.curveWidth = int(Settings.textBoxes[0].text)
+         Settings.curveWidth = min(Settings.curveWidth, Settings.maxInt)
       except:
          pass
       try:
          Settings.pointRadius = int(Settings.textBoxes[1].text)
+         Settings.pointRadius = min(Settings.pointRadius, Settings.maxInt)
       except:
          pass
       try:
          Settings.primaryLineWidth = int(Settings.textBoxes[2].text)
+         Settings.primaryLineWidth = min(Settings.primaryLineWidth, Settings.maxInt)
       except:
          pass
       try:
          Settings.otherLineWidth = int(Settings.textBoxes[3].text)
+         Settings.otherLineWidth = min(Settings.otherLineWidth, Settings.maxInt)
       except:
          pass
       

@@ -13,8 +13,6 @@ class BezierCurve():
    otherLineColor = (100,100,200)
    
    curveColor = (200,100,100)
-
-   selectedPointColor = (100,200,100)
    
    def __init__(self, x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2, numPoints=1):
       self.x = x
@@ -31,15 +29,10 @@ class BezierCurve():
    def handle_event(self, event):
       for point in self.points:
          point.handle_event(event)
-         if point.clicked:
-            BezierCurve.mainCurve = self
    
    def drawPoints(self, screen):
       for point in self.points:
-         if self == BezierCurve.mainCurve:
-            point.drawColor(screen, BezierCurve.selectedPointColor)
-         else:
-            point.draw(screen)
+         point.draw(screen)
    
    def drawPrimaryLines(self, screen, width):
       for i in range(len(self.points)-1):
@@ -54,15 +47,32 @@ class BezierCurve():
          new_points.append([self.activePoints[i][0]+vector[0], self.activePoints[i][1]+vector[1]])
       self.activePoints = new_points
    
-   def handleDuplicates(self):
-      for i in range(len(self.points)):
-         if self.points[i].clicked == True:
-            for point in self.points[i+1:]:
+   @staticmethod
+   def handleDuplicates():
+      # for main curve
+      for i in range(len(BezierCurve.mainCurve.points)):
+         if BezierCurve.mainCurve.points[i].clicked == True:
+            for point in BezierCurve.mainCurve.points[i+1:]:
                point.clicked = False
             for curve in BezierCurve.allCurves:
-               if curve != self:
+               if curve != BezierCurve.mainCurve:
                   for point in curve.points:
                      point.clicked = False
+            return
+      
+      # Nothing selected in main curve
+      for curve in BezierCurve.allCurves:
+         if curve != BezierCurve.mainCurve:
+            for i in range(len(curve.points)):
+               if curve.points[i].clicked == True:
+                  for point in curve.points[i+1:]:
+                     point.clicked = False
+                  BezierCurve.mainCurve = curve
+                  for curveToShutOff in BezierCurve.allCurves:
+                     if curveToShutOff != curve:
+                        for point in curveToShutOff.points:
+                           point.clicked = False
+                  return
    
    def setPointsRadius(self, radius):
       for point in self.points:
