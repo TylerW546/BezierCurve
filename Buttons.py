@@ -7,6 +7,10 @@ from Curve import BezierCurve
 from Points import *
 
 class ButtonBase():
+   """This is button with no update methods. Stores some things needed for updating based on pygame events, but doesn't use them in this class."""
+   # Does not update on hover because the ButtonBase can be used as a nice way to display static text
+   # Stores position, text, width, height, some color infromation, and the textLayer that pygame can render
+   
    offColor = (50,100,100)
    hoverColor = (100,50,50)
    onColor = (200,100,100)
@@ -56,7 +60,8 @@ class ToggleButton(ButtonBase):
       super(ToggleButton, self).__init__(x,y,text,w,h,offC=offC, hC=hC, onC=onC, initialValue=initialValue)
       
    def handle_event(self, event):
-      if event.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos):
+      if event.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos): # When mouse clicks on the button
+         # Toggle on/off and set color
          self.on = not self.on
          if self.on:
             self.currentColor = self.onColor
@@ -98,15 +103,18 @@ class ClickerButton(ButtonBase):
       pass
          
 class NewPointButton(ClickerButton):
+   """Creates a new point for the active curve"""
    def onClick(self):
       BezierCurve.mainCurve.points.append(BoundaryPoint(BezierCurve.mainCurve.x, BezierCurve.mainCurve.y))
       
 class RemovePointButton(ClickerButton):
+   """Removes the end point of the active curve"""
    def onClick(self):
       if len(BezierCurve.mainCurve.points) > 1:
          BezierCurve.mainCurve.points.pop()
 
 class AnimateLineButton(ClickerButton):
+   """Runs the animation of the line"""
    def onClick(self):
       from Settings import Settings
       if not Settings.animationFrozen:

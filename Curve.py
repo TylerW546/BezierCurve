@@ -49,7 +49,7 @@ class BezierCurve():
    
    @staticmethod
    def handleDuplicates():
-      # for main curve
+      # Checks if the main curve has a selected point
       for i in range(len(BezierCurve.mainCurve.points)):
          if BezierCurve.mainCurve.points[i].clicked == True:
             for point in BezierCurve.mainCurve.points[i+1:]:
@@ -60,7 +60,7 @@ class BezierCurve():
                      point.clicked = False
             return
       
-      # Nothing selected in main curve
+      # Nothing selected in main curve, check for selected points in other curves
       for curve in BezierCurve.allCurves:
          if curve != BezierCurve.mainCurve:
             for i in range(len(curve.points)):
