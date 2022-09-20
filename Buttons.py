@@ -106,7 +106,7 @@ class NewPointButton(ClickerButton):
    """Creates a new point for the active curve"""
    def onClick(self):
       BezierCurve.mainCurve.points.append(BoundaryPoint(BezierCurve.mainCurve.x, BezierCurve.mainCurve.y))
-      
+
 class RemovePointButton(ClickerButton):
    """Removes the end point of the active curve"""
    def onClick(self):
