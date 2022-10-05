@@ -41,6 +41,7 @@ background = (30,30,40)
 pygame.font.init()
 myfont = pygame.font.SysFont('Times New Roman', 20)
 pygame.init()
+pygame.display.set_caption("Bezier Curve")
 screen = pygame.display.set_mode((SCREEN_WIDTH + SETTINGS_WIDTH, SCREEN_HEIGHT))
 
 def main():

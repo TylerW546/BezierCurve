@@ -123,3 +123,16 @@ class AnimateLineButton(ClickerButton):
       else:
          Settings.animationFrozen = False
          self.setText(self.defaultText)
+
+class NewCurveButton(ClickerButton):
+   """Creates a new point for the active curve"""
+   def onClick(self):
+      BezierCurve.mainCurve = BezierCurve()
+
+class RemoveCurveButton(ClickerButton):
+   """Creates a new point for the active curve"""
+   def onClick(self):
+      BezierCurve.allCurves.remove(BezierCurve.mainCurve)
+      if len(BezierCurve.allCurves) > 0:
+         BezierCurve.mainCurve = BezierCurve.allCurves[0]
+
